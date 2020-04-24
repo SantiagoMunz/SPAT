@@ -10,7 +10,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jface.text.Document;
 public class Main {
 	//use ASTParse to parse string
-	public static void parse(String str, String dirPath,String outputdir,String[] arrString) {
+	public static void parse(String str, String dirPath,String outputdir,String[] arrString, String IdofRule) {
 		Document document = new Document(str);
 		ASTParser parser = ASTParser.newParser(AST.JLS8);
 		parser.setResolveBindings(true);
@@ -39,7 +39,7 @@ public class Main {
 //			System.out.println("Binding is not activated.");
 //		}
 		
-		cu.accept(new LocalVariableRenaming(cu, document, outputdir));
+		cu.accept(RuleSelector.create(IdofRule, cu, document, outputdir));
 			
  
 	}
@@ -47,7 +47,7 @@ public class Main {
 	
  
 	//loop directory to get file list
-	public static void ParseFilesInDir(String dirPath,String outputdir,String[] arrString) throws IOException{
+	public static void ParseFilesInDir(String dirPath,String outputdir,String[] arrString, String idOfRule) throws IOException{
 //		SOURCES = new ArrayList<String>();
 		File root = new File(dirPath);
 		//System.out.println(rootDir.listFiles());
@@ -58,25 +58,25 @@ public class Main {
 			 filePath = f.getAbsolutePath();
 			 if(f.isFile()){
 				 System.out.println("Current File is: " + filePath);
-				 parse(Utils.readFileToString(filePath), dirPath,outputdir, arrString);
+				 parse(Utils.readFileToString(filePath), dirPath,outputdir, arrString, idOfRule);
 			 }
 		 }
 	}
  
 	public static void main(String[] args) throws IOException {
-		if(args.length != 3) {
-			System.out.println("SRAT needs three arguments to run properly: "
-					+ "[DirPathOftheSourcefiles] [OutputDir] [PathoftheJre(rt.jar)] & [PathofotherDependentJar] "
+		if(args.length != 4) {
+			System.out.println("SRAT needs four arguments to run properly: "
+					+ "[theIdOfTheSelectedRule] [DirPathOftheSourcefiles] [OutputDir] [PathoftheJre(rt.jar)] & [PathofotherDependentJar] "
 					+ "for example \"C:\\Program Files\\Java\\jre1.8.0_211\\lib\\rt.jar\"");
 			System.exit(4);
 		}
-		String dirOfthefiles = args[0];
-		String outputdir = args[1];
+		String dirOfthefiles = args[1];
+		String outputdir = args[2];
 		ArrayList <String> jre_rtPath = new ArrayList<String>();
-		for(int i = 2; i < args.length;i++) {
+		for(int i = 3; i < args.length;i++) {
 			jre_rtPath.add(args[i]);
 		}
 		
-		ParseFilesInDir(dirOfthefiles, outputdir, Utils.ArryStr2priStrList(jre_rtPath));
+		ParseFilesInDir(dirOfthefiles, outputdir, Utils.ArryStr2priStrList(jre_rtPath), args[0]);
 	}
 }
