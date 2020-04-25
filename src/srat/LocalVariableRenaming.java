@@ -13,9 +13,7 @@ import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jface.text.Document;
-import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.TextEdit;
-import org.eclipse.text.edits.UndoEdit;
 
 public class LocalVariableRenaming extends ASTVisitor{
 	Map<IBinding, ArrayList<SimpleName> > bindings2names = new HashMap<>();
@@ -52,7 +50,7 @@ public class LocalVariableRenaming extends ASTVisitor{
 		ASTRewrite rewriter = ASTRewrite.create(ast);
 		Set<IBinding> variableBins = this.bindings2names.keySet();
 		for (IBinding varBin : variableBins) {
-			String newName = Utils.getRandomString(5);
+			String newName = Utils.getRandomString(8);
 			ArrayList<SimpleName> vars = this.bindings2names.get(varBin);
 			for(SimpleName var: vars) {
 				rewriter.set(var, SimpleName.IDENTIFIER_PROPERTY, newName, null);
@@ -60,15 +58,6 @@ public class LocalVariableRenaming extends ASTVisitor{
 		}
 //		System.out.println("begin applying edits");
 		TextEdit edits = rewriter.rewriteAST(document, null);
-		@SuppressWarnings("unused")
-		UndoEdit undo = null;
-	     try {
-			undo = edits.apply(document);
-		} catch (org.eclipse.jface.text.BadLocationException e) {
-			e.printStackTrace();
-		} catch(MalformedTreeException e) {
-		    e.printStackTrace();
-		}
-	    Utils.applyRewrite(node, document.get(),outputDirPath);
+		Utils.applyRewrite(node, edits, document,outputDirPath);
 	}
 }

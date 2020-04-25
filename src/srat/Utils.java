@@ -7,8 +7,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.formatter.CodeFormatter;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.text.edits.MalformedTreeException;
+import org.eclipse.text.edits.TextEdit;
+import org.eclipse.text.edits.UndoEdit;
 
 public class Utils {
 	//read file content into a string
@@ -63,7 +71,32 @@ public class Utils {
 		return ((TypeDeclaration)node.types().get(0)).getName().getIdentifier();
 	}
 
-	public static void applyRewrite(CompilationUnit node, String newcode, String outputDirPath) {
+	public static void applyRewrite(CompilationUnit node, TextEdit edits, Document document, String outputDirPath) {
+		//Code below is to reformat the transfered codes.
+		@SuppressWarnings("unused")
+		UndoEdit undo = null;
+		 try {
+		     undo = edits.apply(document);
+		 } catch(MalformedTreeException e) {
+		     e.printStackTrace();
+		 } catch(BadLocationException e) {
+		     e.printStackTrace();
+		 }
+		 
+		 CodeFormatter codeFormatter = ToolFactory.createCodeFormatter(null, ToolFactory.M_FORMAT_EXISTING);
+		 String code = document.get();
+		 TextEdit textEdit = codeFormatter.format(CodeFormatter.K_COMPILATION_UNIT, code, 0, code.length(), 0, "\n");
+		 IDocument formatteddoc = new Document(code);
+		 try {
+				textEdit.apply(formatteddoc);
+			} catch (MalformedTreeException e) {
+				e.printStackTrace();
+			} catch (BadLocationException e) {
+				e.printStackTrace();
+			}
+		String newcode = formatteddoc.get();
+		
+		
 		// TODO Auto-generated method stub
 		String classname = FromCompilationUnit2ClassName(node);
 		String filepath = outputDirPath + "\\" + classname + ".java";

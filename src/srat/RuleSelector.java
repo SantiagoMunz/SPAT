@@ -4,14 +4,27 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jface.text.Document;
 
+
+
+
+
 public class RuleSelector {
+	static final int LocalVarRenaming = 0;
+	static final int For2While = 1;
+	static final int While2For = 2;
+	static final int ReverseIfElse = 3;
+	
 	static ASTVisitor create(String ruleId, CompilationUnit cu_, Document document_, String outputDirPath_) {
 		int ider = Integer.parseInt(ruleId);
 		switch (ider) {
-		case 0://local var Renaming
+		case LocalVarRenaming://local var Renaming
 			return new LocalVariableRenaming(cu_, document_, outputDirPath_);
-		case 1://for statement trans to while statement
+		case For2While://for statement trans to while statement
 			return new ChangeFor2While(cu_, document_, outputDirPath_);
+		case While2For://while statement trans to for statement
+			return new ChangeWhile2For(cu_, document_, outputDirPath_);
+		case ReverseIfElse:
+			return new ReveseIf_Else(cu_, document_, outputDirPath_);
 		default:
 			System.out.println("ERROR:" + "No rule corresponds to this id!");
 			System.exit(5);
