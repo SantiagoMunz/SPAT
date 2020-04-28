@@ -48,6 +48,9 @@ public class ChangeFor2While extends ASTVisitor{
 		for(ForStatement forer: fors){
 			WhileStatement whiler = ast.newWhileStatement();
 			Expression theexp = (Expression) ASTNode.copySubtree(ast, forer.getExpression());
+			if (theexp == null) {
+				theexp = ast.newBooleanLiteral(true);
+			}
 			whiler.setExpression(theexp);
 			Statement bodystatement = forer.getBody();
 			Statement whilebody = (Statement) ASTNode.copySubtree(ast, bodystatement);

@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
+
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -24,7 +26,8 @@ public class Main {
 		String unitName = "Apple.java";
 		parser.setUnitName(unitName);
  
-		String[] sources = Utils.SingleStr2priList(dirPath); 
+		//String[] sources = Utils.SingleStr2priList(dirPath);//This make things complicated,we do not need to consider the relationship between files.
+		String[] sources = {""};//Just the file itself.
 		String[] classpath = arrString;
  
 		parser.setEnvironment(classpath, sources, new String[] { "UTF-8"}, true);
@@ -52,15 +55,37 @@ public class Main {
 		File root = new File(dirPath);
 		//System.out.println(rootDir.listFiles());
 		File[] files = root.listFiles( );
-		String filePath = null;
- 
-		 for (File f : files ) {
-			 filePath = f.getAbsolutePath();
+
+		
+		
+		
+//		
+//		 for (File f : files ) {
+//			 String filePath = f.getAbsolutePath();
+//			 if(f.isFile()){
+//				 System.out.println("Current File is: " + filePath);
+//				 parse(Utils.readFileToString(filePath), dirPath,outputdir, arrString, idOfRule);
+//			 }
+//		 } //This is the old single thread.
+//		
+		
+		
+		
+		
+		Set<File> fileSet = Set.of(files);
+		fileSet.parallelStream().forEach(f -> {
+			String filePath = f.getAbsolutePath();
 			 if(f.isFile()){
-				 System.out.println("Current File is: " + filePath);
-				 parse(Utils.readFileToString(filePath), dirPath,outputdir, arrString, idOfRule);
+				 //System.out.println("Current File is: " + filePath);
+				 try {
+					parse(Utils.readFileToString(filePath), dirPath,outputdir, arrString, idOfRule);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			 }
-		 }
+		});
+		
 	}
  
 	public static void main(String[] args) throws IOException {
