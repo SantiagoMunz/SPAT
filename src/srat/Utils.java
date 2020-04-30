@@ -8,8 +8,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.eclipse.jdt.core.ToolFactory;
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.ChildListPropertyDescriptor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.InfixExpression;
+import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
+import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
@@ -70,6 +77,15 @@ public class Utils {
 	public static String FromCompilationUnit2ClassName(CompilationUnit node) {
 		return ((TypeDeclaration)node.types().get(0)).getName().getIdentifier();
 	}
+	
+	public static Statement father2AStatement(ASTNode node) {
+		while(!(node.getParent() instanceof  Statement)) {
+			return father2AStatement(node.getParent());
+		}
+		return (Statement) node.getParent();
+		
+	}
+	
 
 	public static void applyRewrite(CompilationUnit node, TextEdit edits, Document document, String outputDirPath) {
 		//Code below is to reformat the transfered codes.
@@ -110,5 +126,32 @@ public class Utils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public static InfixExpression father2AInfixExpression(Expression node) {
+		if(!(node.getParent() instanceof  Expression)) {
+			return null;
+		}
+		if(!(node.getParent() instanceof InfixExpression)) {
+			return father2AInfixExpression( (Expression) node.getParent());
+		}
+		return (InfixExpression) node.getParent();
+	}
+
+	public static Statement father2AListRewriterForStatementInserting(ASTNode node, ASTRewrite rewriter) {
+		if(node == null) {
+			return null;
+		}
+		if(! (node instanceof Statement)) {
+			return father2AListRewriterForStatementInserting(node.getParent(), rewriter);
+		}
+		try {
+			@SuppressWarnings("unused")
+			ListRewrite lrt = rewriter.getListRewrite(node.getParent(), (ChildListPropertyDescriptor) node.getLocationInParent());
+			return (Statement) node;
+		}catch (Exception e) {
+			return father2AListRewriterForStatementInserting(node.getParent(), rewriter);
+		}
+		
 	}
 }

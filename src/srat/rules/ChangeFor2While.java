@@ -1,4 +1,4 @@
-package srat;
+package srat.rules;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,8 @@ import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.TextEdit;
+
+import srat.Utils;
 
 public class ChangeFor2While extends ASTVisitor{
 	CompilationUnit cu = null;

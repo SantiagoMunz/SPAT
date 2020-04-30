@@ -1,4 +1,4 @@
-package srat;
+package srat.rules;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +14,8 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.TextEdit;
+
+import srat.Utils;
 
 public class LocalVariableRenaming extends ASTVisitor{
 	Map<IBinding, ArrayList<SimpleName> > bindings2names = new HashMap<>();

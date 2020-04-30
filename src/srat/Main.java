@@ -23,7 +23,7 @@ public class Main {
 		Map<String, String> options = JavaCore.getOptions();
 		parser.setCompilerOptions(options);
  
-		String unitName = "Apple.java";
+		String unitName = "Apple.java";// Just some random name.
 		parser.setUnitName(unitName);
  
 		//String[] sources = Utils.SingleStr2priList(dirPath);//This make things complicated,we do not need to consider the relationship between files.
@@ -59,7 +59,7 @@ public class Main {
 		
 		
 		
-//		
+		
 //		 for (File f : files ) {
 //			 String filePath = f.getAbsolutePath();
 //			 if(f.isFile()){
@@ -67,7 +67,7 @@ public class Main {
 //				 parse(Utils.readFileToString(filePath), dirPath,outputdir, arrString, idOfRule);
 //			 }
 //		 } //This is the old single thread.
-//		
+		
 		
 		
 		

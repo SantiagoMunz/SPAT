@@ -1,4 +1,4 @@
-package srat;
+package srat.rules;
 
 import java.util.ArrayList;
 
@@ -22,6 +22,8 @@ import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.TextEdit;
 
+import srat.Utils;
+
 public class ConditionalExp2SingleIF extends ASTVisitor{
 	CompilationUnit cu = null;
 	Document document = null;
@@ -36,16 +38,10 @@ public class ConditionalExp2SingleIF extends ASTVisitor{
 	}
 	
 
-	private Statement father2AStatement(ASTNode node) {
-		while(!(node.getParent() instanceof  Statement)) {
-			return father2AStatement(node.getParent());
-		}
-		return (Statement) node.getParent();
-		
-	}
+	
 	
 	public boolean visit(ConditionalExpression node) {
-		Statement father = father2AStatement(node);
+		Statement father = Utils.father2AStatement(node);
 		if (father.getNodeType() == ASTNode.EXPRESSION_STATEMENT) {
 			//if(((ExpressionStatement)father).getExpression().getNodeType() == ASTNode.ASSIGNMENT) {
 			conditionalExps.add(node);
@@ -99,12 +95,12 @@ public class ConditionalExp2SingleIF extends ASTVisitor{
 		ASTRewrite rewriter = ASTRewrite.create(ast);
 		
 		for(ConditionalExpression conditionalExp : conditionalExps) {
-			ExpressionStatement father = (ExpressionStatement) father2AStatement(conditionalExp);
+			ExpressionStatement father = (ExpressionStatement) Utils.father2AStatement(conditionalExp);
 			cond2IF(father, ast, conditionalExp, rewriter);
 		}
 		
 		for(ConditionalExpression conditionalDec : conditionalDecs) {
-			VariableDeclarationStatement father = (VariableDeclarationStatement) father2AStatement(conditionalDec);
+			VariableDeclarationStatement father = (VariableDeclarationStatement) Utils.father2AStatement(conditionalDec);
 			VariableDeclarationStatement predeclaration = (VariableDeclarationStatement) ASTNode.copySubtree(ast, father);
 			VariableDeclarationFragment fra = (VariableDeclarationFragment) predeclaration.fragments().get(0);
 			

@@ -1,4 +1,4 @@
-package srat;
+package srat.rules;
 
 import java.util.ArrayList;
 import org.eclipse.jdt.core.dom.AST;
@@ -12,6 +12,8 @@ import org.eclipse.jdt.core.dom.WhileStatement;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.TextEdit;
+
+import srat.Utils;
 
 public class ChangeWhile2For extends ASTVisitor{
 	CompilationUnit cu = null;
