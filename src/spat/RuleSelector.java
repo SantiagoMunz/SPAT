@@ -24,6 +24,8 @@ public class RuleSelector {
 	static final int LoopIfContinue2Else = 11;
 	static final int VarDeclarationMerging = 12;
 	static final int VarDeclarationDividing = 13;
+	static final int SwitchEqualSides = 14;
+	static final int SwitchStringEqual = 15;
 	
 	static ASTVisitor create(String ruleId, CompilationUnit cu_, Document document_, String outputDirPath_) {
 		int ider = Integer.parseInt(ruleId);
@@ -56,6 +58,10 @@ public class RuleSelector {
 			return new VarDeclarationMerging(cu_, document_, outputDirPath_);
 		case VarDeclarationDividing:
 			return new VarDeclarationDividing(cu_, document_, outputDirPath_);
+		case SwitchEqualSides:
+			return new SwitchEqualSides(cu_, document_, outputDirPath_);
+		case SwitchStringEqual:
+			return new SwitchStringEqual(cu_, document_, outputDirPath_);
 			
 			
 		default:
