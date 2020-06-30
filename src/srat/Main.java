@@ -14,7 +14,7 @@ public class Main {
 	//use ASTParse to parse string
 	public static void parse(String str, String dirPath,String outputdir,String[] arrString, String IdofRule) {
 		Document document = new Document(str);
-		ASTParser parser = ASTParser.newParser(AST.JLS8);
+		ASTParser parser = ASTParser.newParser(AST.JLS13);
 		parser.setResolveBindings(true);
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
  
@@ -54,7 +54,7 @@ public class Main {
 //		SOURCES = new ArrayList<String>();
 		File root = new File(dirPath);
 		//System.out.println(rootDir.listFiles());
-		File[] files = root.listFiles( );
+		File[] files = Utils.folderMethod(root.getAbsolutePath(), outputdir);
 
 		
 		
@@ -64,11 +64,14 @@ public class Main {
 //			 String filePath = f.getAbsolutePath();
 //			 if(f.isFile()){
 //				 System.out.println("Current File is: " + filePath);
-//				 parse(Utils.readFileToString(filePath), dirPath,outputdir, arrString, idOfRule);
+//				 try {
+//					 parse(Utils.readFileToString(filePath), dirPath, Utils.sublizeOutput(filePath, dirPath, outputdir), arrString, idOfRule);
+//				 }
+//				 catch(Exception e){
+//					 System.out.println("trans failed:	" + filePath);
+//				 }
 //			 }
 //		 } //This is the old single thread.
-		
-		
 		
 		
 		
@@ -78,10 +81,10 @@ public class Main {
 			 if(f.isFile()){
 				 //System.out.println("Current File is: " + filePath);
 				 try {
-					parse(Utils.readFileToString(filePath), dirPath,outputdir, arrString, idOfRule);
-				} catch (IOException e) {
+					parse(Utils.readFileToString(filePath), dirPath,Utils.sublizeOutput(filePath, dirPath, outputdir), arrString, idOfRule);
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println("trans failed:	" + filePath);
 				}
 			 }
 		});

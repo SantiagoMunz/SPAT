@@ -41,7 +41,12 @@ public class ConditionalExp2SingleIF extends ASTVisitor{
 	
 	
 	public boolean visit(ConditionalExpression node) {
-		Statement father = Utils.father2AStatement(node);
+		Statement father = null;
+		try {
+			father = Utils.father2AStatement(node);
+		}catch(Exception e) {
+			return true;
+		}
 		if (father.getNodeType() == ASTNode.EXPRESSION_STATEMENT) {
 			//if(((ExpressionStatement)father).getExpression().getNodeType() == ASTNode.ASSIGNMENT) {
 			conditionalExps.add(node);

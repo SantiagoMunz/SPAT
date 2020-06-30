@@ -80,6 +80,9 @@ public class InfixExpressionDividing extends ASTVisitor{
 			tmpDec.setType(pt);
 			
 			Statement insertbeforethisfather = Utils.father2AListRewriterForStatementInserting(theInfixExp, rewriter);
+			if(insertbeforethisfather == null) {//No where to insert. face it.
+				continue;
+			}
 			ListRewrite lrt = rewriter.getListRewrite(insertbeforethisfather.getParent(), (ChildListPropertyDescriptor) insertbeforethisfather.getLocationInParent());
 			lrt.insertBefore(tmpDec, insertbeforethisfather, null);
 			rewriter.replace(theInfixExp, tmpName, null);

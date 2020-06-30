@@ -6,18 +6,23 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="n465616.java|n372172.java|n0.java|n1097147.java|n15347323.java|n009.java|B.java|n007.java" kind="src" path="src"/>
-	<classpathentry kind="lib" path="libs/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="libs/commons-configuration-1.6.jar"/>
-	<classpathentry kind="lib" path="libs/commons-lang-2.5.jar"/>
-	<classpathentry kind="lib" path="libs/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="libs/org.eclipse.core.contenttype_3.4.1.R35x_v20090826-0451.jar"/>
-	<classpathentry kind="lib" path="libs/org.eclipse.core.jobs_3.4.100.v20090429-1800.jar"/>
-	<classpathentry kind="lib" path="libs/org.eclipse.core.resources_3.5.2.R35x_v20091203-1235.jar"/>
-	<classpathentry kind="lib" path="libs/org.eclipse.core.runtime_3.5.0.v20090525.jar"/>
-	<classpathentry kind="lib" path="libs/org.eclipse.equinox.common_3.5.1.R35x_v20090807-1100.jar"/>
-	<classpathentry kind="lib" path="libs/org.eclipse.equinox.preferences_3.2.301.R35x_v20091117.jar"/>
-	<classpathentry kind="lib" path="libs/org.eclipse.jdt.core-3.12.3.jar"/>
-	<classpathentry kind="lib" path="libs/org.eclipse.osgi_3.5.2.R35x_v20100126.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.text_3.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/commons-configuration-1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/commons-lang-2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.core.commands-3.9.700.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.core.contenttype-3.7.600.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.core.expressions-3.6.700.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.core.filesystem-1.7.700.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.core.jobs-3.10.700.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.core.resources-3.13.700.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.core.runtime-3.17.100.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.equinox.app-1.4.400.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.equinox.common-3.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.equinox.preferences-3.7.700.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.equinox.registry-3.8.700.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.jdt.core-3.21.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.osgi-3.15.200.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SantiagoMunz/eclipsepground_workplace/RuleWriter/libs/org.eclipse.text-3.10.100.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

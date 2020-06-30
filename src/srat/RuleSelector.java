@@ -4,16 +4,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jface.text.Document;
 
-import srat.rules.ChangeFor2While;
-import srat.rules.ChangeWhile2For;
-import srat.rules.ConditionalExp2SingleIF;
-import srat.rules.LocalVariableRenaming;
-import srat.rules.ReveseIf_Else;
-import srat.rules.SingleIf2ConditionalExp;
-import srat.rules.PP2AddAssignment;
-import srat.rules.AddAssignemnt2EqualAssignment;
-import srat.rules.InfixExpressionDividing;
-
+import srat.rules.*;
 
 
 
@@ -28,6 +19,10 @@ public class RuleSelector {
 	static final int PP2AddAssignment = 6;
 	static final int AddAssignemnt2EqualAssignment = 7;
 	static final int InfixExpressionDividing = 8;
+	static final int PrePostFixExpressionDividing = 9;
+	static final int StatementsOrderRearrangement = 10;
+	static final int LoopIfContinue2Else = 11;
+	static final int VarDeclarationMerging = 12;
 	
 	static ASTVisitor create(String ruleId, CompilationUnit cu_, Document document_, String outputDirPath_) {
 		int ider = Integer.parseInt(ruleId);
@@ -50,6 +45,14 @@ public class RuleSelector {
 			return new AddAssignemnt2EqualAssignment(cu_, document_, outputDirPath_);
 		case InfixExpressionDividing:
 			return new InfixExpressionDividing(cu_, document_, outputDirPath_);
+		case PrePostFixExpressionDividing:
+			return new PrePostFixExpressionDividing(cu_, document_, outputDirPath_);
+		case StatementsOrderRearrangement:
+			return new StatementsOrderRearrangement(cu_, document_, outputDirPath_);
+		case LoopIfContinue2Else:
+			return new LoopIfContinue2Else(cu_, document_, outputDirPath_);
+		case VarDeclarationMerging:
+			return new VarDeclarationMerging(cu_, document_, outputDirPath_);
 			
 			
 		default:
