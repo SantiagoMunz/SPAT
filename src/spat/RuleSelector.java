@@ -23,6 +23,7 @@ public class RuleSelector {
 	static final int StatementsOrderRearrangement = 10;
 	static final int LoopIfContinue2Else = 11;
 	static final int VarDeclarationMerging = 12;
+	static final int VarDeclarationDividing = 13;
 	
 	static ASTVisitor create(String ruleId, CompilationUnit cu_, Document document_, String outputDirPath_) {
 		int ider = Integer.parseInt(ruleId);
@@ -53,6 +54,8 @@ public class RuleSelector {
 			return new LoopIfContinue2Else(cu_, document_, outputDirPath_);
 		case VarDeclarationMerging:
 			return new VarDeclarationMerging(cu_, document_, outputDirPath_);
+		case VarDeclarationDividing:
+			return new VarDeclarationDividing(cu_, document_, outputDirPath_);
 			
 			
 		default:

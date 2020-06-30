@@ -60,34 +60,35 @@ public class Main {
 		
 		
 		
-//		 for (File f : files ) {
-//			 String filePath = f.getAbsolutePath();
-//			 if(f.isFile()){
-//				 System.out.println("Current File is: " + filePath);
-//				 try {
-//					 parse(Utils.readFileToString(filePath), dirPath, Utils.sublizeOutput(filePath, dirPath, outputdir), arrString, idOfRule);
-//				 }
-//				 catch(Exception e){
-//					 System.out.println("trans failed:	" + filePath);
-//				 }
-//			 }
-//		 } //This is the old single thread.
-		
-		
-		
-		Set<File> fileSet = Set.of(files);
-		fileSet.parallelStream().forEach(f -> {
-			String filePath = f.getAbsolutePath();
+		 for (File f : files ) {
+			 String filePath = f.getAbsolutePath();
 			 if(f.isFile()){
-				 //System.out.println("Current File is: " + filePath);
+				 System.out.println("Current File is: " + filePath);
 				 try {
-					parse(Utils.readFileToString(filePath), dirPath,Utils.sublizeOutput(filePath, dirPath, outputdir), arrString, idOfRule);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					System.out.println("trans failed:	" + filePath);
-				}
+					 parse(Utils.readFileToString(filePath), dirPath, Utils.sublizeOutput(filePath, dirPath, outputdir), arrString, idOfRule);
+				 }
+				 catch(Exception e){
+					 System.out.println("trans failed:	" + filePath);
+					 System.out.println(e.toString());
+				 }
 			 }
-		});
+		 } //This is the old single thread.
+		
+		
+		
+//		Set<File> fileSet = Set.of(files);
+//		fileSet.parallelStream().forEach(f -> {
+//			String filePath = f.getAbsolutePath();
+//			 if(f.isFile()){
+//				 //System.out.println("Current File is: " + filePath);
+//				 try {
+//					parse(Utils.readFileToString(filePath), dirPath,Utils.sublizeOutput(filePath, dirPath, outputdir), arrString, idOfRule);
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					System.out.println("trans failed:	" + filePath);
+//				}
+//			 }
+//		});
 		
 	}
  
