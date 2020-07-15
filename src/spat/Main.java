@@ -2,6 +2,7 @@ package spat;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
@@ -75,7 +76,7 @@ public class Main {
 //		 } //This is the old single thread.
 		
 		
-		
+		// If the Size if too big, we have to chop it into a small number.
 		Set<File> fileSet = Set.of(files);
 		fileSet.parallelStream().forEach(f -> {
 			String filePath = f.getAbsolutePath();
@@ -83,13 +84,16 @@ public class Main {
 				 //System.out.println("Current File is: " + filePath);
 				 try {
 					parse(Utils.readFileToString(filePath), dirPath,Utils.sublizeOutput(filePath, dirPath, outputdir), arrString, idOfRule);
-				} catch (Exception e) {
+				} catch (Exception e ) {
 					// TODO Auto-generated catch block
 					System.out.println("trans failed:	" + filePath);
+				}catch (Error s) {
+					// TODO Auto-generated catch block
+					System.out.println("trans failed:	" + s.toString());
 				}
 			 }
 		});
-		
+
 	}
  
 	public static void main(String[] args) throws IOException {
